@@ -29,35 +29,60 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormContent));
-            this.button1 = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.trainzButton1 = new TRS2004Edit.TrainzButton();
+            this.trainzButton2 = new TRS2004Edit.TrainzButton();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(265, 36);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // treeView1
             // 
             this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeView1.BackColor = System.Drawing.Color.Black;
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.treeView1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.treeView1.Location = new System.Drawing.Point(12, 12);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(247, 426);
+            this.treeView1.Size = new System.Drawing.Size(438, 560);
             this.treeView1.TabIndex = 1;
+            // 
+            // trainzButton1
+            // 
+            this.trainzButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.trainzButton1.BackColor = System.Drawing.Color.Transparent;
+            this.trainzButton1.Font = new System.Drawing.Font("Bahnschrift Light SemiCondensed", 18F);
+            this.trainzButton1.Location = new System.Drawing.Point(476, 539);
+            this.trainzButton1.Margin = new System.Windows.Forms.Padding(4);
+            this.trainzButton1.MaximumSize = new System.Drawing.Size(512, 32);
+            this.trainzButton1.MinimumSize = new System.Drawing.Size(32, 32);
+            this.trainzButton1.Name = "trainzButton1";
+            this.trainzButton1.Size = new System.Drawing.Size(172, 32);
+            this.trainzButton1.TabIndex = 2;
+            this.trainzButton1.Text = "Beenden";
+            // 
+            // trainzButton2
+            // 
+            this.trainzButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.trainzButton2.BackColor = System.Drawing.Color.Transparent;
+            this.trainzButton2.Font = new System.Drawing.Font("Bahnschrift Light SemiCondensed", 18F);
+            this.trainzButton2.Location = new System.Drawing.Point(476, 499);
+            this.trainzButton2.Margin = new System.Windows.Forms.Padding(4);
+            this.trainzButton2.MaximumSize = new System.Drawing.Size(512, 32);
+            this.trainzButton2.MinimumSize = new System.Drawing.Size(32, 32);
+            this.trainzButton2.Name = "trainzButton2";
+            this.trainzButton2.Size = new System.Drawing.Size(172, 32);
+            this.trainzButton2.TabIndex = 3;
+            this.trainzButton2.Text = "Kopiren";
             // 
             // FormContent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackgroundImage = global::TRS2004Edit.Properties.Resources.readmeback;
+            this.ClientSize = new System.Drawing.Size(661, 584);
+            this.Controls.Add(this.trainzButton2);
+            this.Controls.Add(this.trainzButton1);
             this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -68,8 +93,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TreeView treeView1;
+        private TrainzButton trainzButton1;
+        private TrainzButton trainzButton2;
     }
 }

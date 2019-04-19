@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{86FF1016-897E-42D6-9E60-60EEE9D8656D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>TRS2004Edit</RootNamespace>
     <AssemblyName>TRS2004Edit</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>editor.ico</ApplicationIcon>
@@ -52,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\content\ContentManager.cs" />
     <Compile Include="src\content\FormContent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +62,9 @@
       <DependentUpon>FormContent.cs</DependentUpon>
     </Compile>
     <Compile Include="src\content\Parser.cs" />
+    <Compile Include="src\content\Token.cs" />
+    <Compile Include="src\content\TrainzObject.cs" />
+    <Compile Include="src\content\TrainzProperty.cs" />
     <Compile Include="src\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,8 +79,17 @@
     </Compile>
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\control\TrainzButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\control\TrainzButton.Designer.cs">
+      <DependentUpon>TrainzButton.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="src\content\FormContent.resx">
       <DependentUpon>FormContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\control\TrainzButton.resx">
+      <DependentUpon>TrainzButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -90,6 +105,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="bin\Settings\tuning.dat" />
     <None Include="Properties\Settings.settings">
@@ -107,6 +123,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\trainzoptions.txt" />
+    <None Include="Resources\readmeback.png" />
+    <None Include="Resources\lampY.png" />
+    <None Include="Resources\editor.ico" />
+    <None Include="Resources\background.png" />
+    <None Include="Resources\lamp.png" />
+    <None Include="Resources\lampG.png" />
+    <None Include="Resources\lampR.png" />
+    <None Include="data\background.png" />
+    <None Include="data\lamp.png" />
+    <None Include="data\lampG.png" />
+    <None Include="data\lampR.png" />
+    <None Include="data\lampY.png" />
+    <None Include="data\editor.ico" />
     <Content Include="editor.ico" />
   </ItemGroup>
   <ItemGroup />

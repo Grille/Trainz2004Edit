@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace TRS2004Edit
 {
+
     static class Program
     {
         /// <summary>

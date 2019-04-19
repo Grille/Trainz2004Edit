@@ -66,6 +66,7 @@ namespace TRS2004Edit
         {
             write();
             save();
+            Close();
         }
 
         void deleteOption(string name)
@@ -111,7 +112,11 @@ namespace TRS2004Edit
 
         void read()
         {
-            textBoxHeight.Text = getOption("width") + "x" + getOption("height");
+            comboBoxRes.SelectedIndex = 0;
+            string res = getOption("width") + " x " + getOption("height");
+            for (int i = 0;i<comboBoxRes.Items.Count;i++)
+                if ((string)comboBoxRes.Items[i] == res)
+                    comboBoxRes.SelectedIndex = i;
             checkBoxFullscreen.Checked = existsOption("fullscreen");
             switch (tuning[30])
             {
@@ -146,8 +151,8 @@ namespace TRS2004Edit
         }
         void write()
         {
-            string width = textBoxHeight.Text.Split('x')[0].Trim();
-            string height = textBoxHeight.Text.Split('x')[1].Trim();
+            string width = ((string)comboBoxRes.SelectedItem).Split('x')[0].Trim();
+            string height = ((string)comboBoxRes.SelectedItem).Split('x')[1].Trim();
             setOption("width", width);
             setOption("height", height);
             setOption("fullscreen", checkBoxFullscreen.Checked);

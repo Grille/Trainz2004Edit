@@ -35,27 +35,27 @@
             this.comboBoxGround = new System.Windows.Forms.ComboBox();
             this.comboBoxScenery = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxHeight = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxFullscreen = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxRes = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(12, 157);
+            this.button1.Location = new System.Drawing.Point(12, 133);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Save";
+            this.button1.Text = "Ok";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(93, 157);
+            this.button2.Location = new System.Drawing.Point(93, 133);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -66,7 +66,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 68);
+            this.label1.Location = new System.Drawing.Point(12, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 13);
             this.label1.TabIndex = 3;
@@ -93,7 +93,7 @@
             "3km",
             "5km",
             "10km"});
-            this.comboBoxScenery.Location = new System.Drawing.Point(93, 92);
+            this.comboBoxScenery.Location = new System.Drawing.Point(93, 90);
             this.comboBoxScenery.Name = "comboBoxScenery";
             this.comboBoxScenery.Size = new System.Drawing.Size(75, 21);
             this.comboBoxScenery.TabIndex = 5;
@@ -101,23 +101,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 95);
+            this.label2.Location = new System.Drawing.Point(12, 94);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Scenery View";
             // 
-            // textBoxHeight
-            // 
-            this.textBoxHeight.Location = new System.Drawing.Point(93, 39);
-            this.textBoxHeight.Name = "textBoxHeight";
-            this.textBoxHeight.Size = new System.Drawing.Size(75, 20);
-            this.textBoxHeight.TabIndex = 7;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 42);
+            this.label3.Location = new System.Drawing.Point(12, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 8;
@@ -125,7 +118,7 @@
             // 
             // checkBoxFullscreen
             // 
-            this.checkBoxFullscreen.Location = new System.Drawing.Point(93, 13);
+            this.checkBoxFullscreen.Location = new System.Drawing.Point(93, 41);
             this.checkBoxFullscreen.Name = "checkBoxFullscreen";
             this.checkBoxFullscreen.Size = new System.Drawing.Size(75, 20);
             this.checkBoxFullscreen.TabIndex = 10;
@@ -134,21 +127,34 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 16);
+            this.label4.Location = new System.Drawing.Point(12, 44);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Fullscreen";
             // 
+            // comboBoxRes
+            // 
+            this.comboBoxRes.FormattingEnabled = true;
+            this.comboBoxRes.Items.AddRange(new object[] {
+            "800 x 600",
+            "1024 x 768",
+            "1600 x 1200",
+            "1920 x 1080"});
+            this.comboBoxRes.Location = new System.Drawing.Point(93, 16);
+            this.comboBoxRes.Name = "comboBoxRes";
+            this.comboBoxRes.Size = new System.Drawing.Size(75, 21);
+            this.comboBoxRes.TabIndex = 11;
+            // 
             // FormSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(183, 192);
+            this.ClientSize = new System.Drawing.Size(183, 168);
+            this.Controls.Add(this.comboBoxRes);
             this.Controls.Add(this.checkBoxFullscreen);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxHeight);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxScenery);
             this.Controls.Add(this.comboBoxGround);
@@ -174,10 +180,10 @@
         private System.Windows.Forms.ComboBox comboBoxGround;
         private System.Windows.Forms.ComboBox comboBoxScenery;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxHeight;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBoxFullscreen;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBoxRes;
     }
 }
 

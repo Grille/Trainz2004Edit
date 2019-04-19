@@ -12,11 +12,18 @@ namespace TRS2004Edit
 {
     public partial class FormContent : Form
     {
+        ContentManager content;
         public FormContent()
         {
             InitializeComponent();
+
+            content = new ContentManager();
             treeView1.BeginUpdate();
 
+            foreach (var obj in content.Objects)
+            {
+                treeView1.Nodes.Add(obj.Path, obj.Path);
+            }
 
             treeView1.Nodes.Add("maps","maps");
             treeView1.Nodes.Add("traincar", "traincar");
