@@ -1,22 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace TRS2004Edit
 {
-    public class Parser
+    public static class Parser
     {
-        int index = 0;
-        string text;
-        List<Token> tokens;
-        public Parser()
+        static public TrainzObject Parse(string text)
         {
-
+            int index = 0;
+            var tokens = tokenize(text);
+            return parse(tokens, ref index);
         }
-        public List<Token> Tokenize(string data)
+        static private TrainzObject parse(List<Token> tokens, ref int i, string name = null)
+        {
+            var obj = new TrainzObject(name);
+            while (i < tokens.Count - 1)
+            {
+                var token0 = tokens[i];
+                var token1 = tokens[i + 1];
+
+                if (token0.Type == TokenType.Symbol && token0.Value == "}")
+                {
+                    i += 1;
+                    break;
+                }
+                else if (token0.Type == TokenType.Identifier && token1.Type == TokenType.Symbol && token1.Value == "{")
+                {
+                    i += 2;
+                    var value = parse(tokens, ref i, token0.Value);
+                    obj.Add(token0.Value, value);
+                }
+                else if (token0.Type == TokenType.Identifier && token1.Type != TokenType.Symbol)
+                {
+                    i += 2;
+                    obj.Set(token0.Value, token1.Value, PropertyType.Number);
+                }
+                else
+                {
+                    i += 1;
+                }
+            }
+            return obj;
+        }
+        static private List<Token> tokenize(string data)
         {
             int count = 0;
             var tokens = new List<Token>();
@@ -100,47 +126,6 @@ namespace TRS2004Edit
             */
 
             return tokens;
-        }
-        public TrainzObject ParseFile(string path)
-        {
-            return Parse(File.ReadAllText(path));
-        }
-        public TrainzObject Parse(string text)
-        {
-            int index = 0;
-            var tokens = Tokenize(text);
-            return parse(tokens, ref index);
-        }
-        private TrainzObject parse(List<Token> tokens, ref int i, string name = null)
-        {
-            var obj = new TrainzObject(name);
-            while (i < tokens.Count - 1)
-            {
-                var token0 = tokens[i];
-                var token1 = tokens[i + 1];
-
-                if (token0.Type == TokenType.Symbol && token0.Value == "}")
-                {
-                    i += 1;
-                    break;
-                }
-                else if (token0.Type == TokenType.Identifier && token1.Type == TokenType.Symbol && token1.Value == "{")
-                {
-                    i += 2;
-                    var value = parse(tokens, ref i, token0.Value);
-                    obj.Add(token0.Value, value);
-                }
-                else if (token0.Type == TokenType.Identifier && token1.Type != TokenType.Symbol)
-                {
-                    i += 2;
-                    obj.Set(token0.Value, token1.Value, PropertyType.Number);
-                }
-                else
-                {
-                    i += 1;
-                }
-            }
-            return obj;
         }
     }
 }

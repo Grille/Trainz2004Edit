@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace TRS2004Edit
 {
     public class ContentManager
     {
-        public Parser Parser;
         public List<TrainzObject> Objects;
 
         public ContentManager()
         {
-            Parser = new Parser();
             string[] directories = Directory.GetDirectories("./World/Custom");
             List<string> paths = new List<string>();
 
