@@ -9,14 +9,16 @@ namespace TRS2004Edit
         public string Path;
         public string Folder;
 
-        List<TrainzObject> objects;
-        List<TrainzProperty> properties;
+        public bool Changed = false;
+
+        public List<TrainzObject> Objects;
+        public List<TrainzProperty> Properties;
 
         public TrainzObject(string name) {
             Name = name;
 
-            properties = new List<TrainzProperty>();
-            objects = new List<TrainzObject>();
+            Properties = new List<TrainzProperty>();
+            Objects = new List<TrainzObject>();
         }
 
         public string this[int i]
@@ -27,11 +29,11 @@ namespace TRS2004Edit
         public TrainzProperty this[string name]
         {
             get { return Get(name); }
-            set { Set(name, value); }
         }
         public bool Exists(string name)
         {
-            foreach (var property in properties)
+            name = name.ToLower();
+            foreach (var property in Properties)
             {
                 if (property.Name == name)
                 {
@@ -40,27 +42,27 @@ namespace TRS2004Edit
             }
             return false;
         }
-        public void Add(string name, TrainzObject value)
+        public void Add(TrainzObject value)
         {
-            objects.Add(value);
+            Objects.Add(value);
         }
-        public void Set(string name, TrainzProperty property)
+        public void Set(TrainzProperty property)
         {
-            name = name.ToLower();
-            for (int i = 0;i< properties.Count;i++)
+            string name = property.Name.ToLower();
+            for (int i = 0;i< Properties.Count;i++)
             {
-                if (properties[i].Name == name)
+                if (Properties[i].Name == name)
                 {
-                    properties[i] = property;
+                    Properties[i] = property;
                     return;
                 }
             }
-            properties.Add(property);
+            Properties.Add(property);
         }
         public void Set(string name, string value, PropertyType type)
         {
             name = name.ToLower();
-            foreach (var property in properties)
+            foreach (var property in Properties)
             {
                 if (property.Name == name)
                 {
@@ -68,12 +70,12 @@ namespace TRS2004Edit
                     return;
                 }
             }
-            properties.Add(new TrainzProperty(name, value, type));
+            Properties.Add(new TrainzProperty(name, value, type));
         }
         public TrainzProperty Get(string name)
         {
             name = name.ToLower();
-            foreach (var property in properties)
+            foreach (var property in Properties)
             {
                 if (property.Name == name)
                     return property;
@@ -82,11 +84,11 @@ namespace TRS2004Edit
         }
         public void Remove(string name)
         {
-            foreach (var property in properties)
+            foreach (var property in Properties)
             {
                 if (property.Name == name)
                 {
-                    properties.Remove(property);
+                    Properties.Remove(property);
                     return;
                 }
             }

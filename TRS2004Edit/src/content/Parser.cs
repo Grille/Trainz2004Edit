@@ -28,12 +28,13 @@ namespace TRS2004Edit
                 {
                     i += 2;
                     var value = parse(tokens, ref i, token0.Value);
-                    obj.Add(token0.Value, value);
+                    obj.Add(value);
                 }
                 else if (token0.Type == TokenType.Identifier && token1.Type != TokenType.Symbol)
                 {
                     i += 2;
-                    obj.Set(token0.Value, token1.Value, PropertyType.Number);
+                    var type = token1.Type == TokenType.String ? PropertyType.String : PropertyType.Number;
+                    obj.Set(token0.Value, token1.Value, type);
                 }
                 else
                 {

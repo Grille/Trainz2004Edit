@@ -63,6 +63,7 @@
     <Compile Include="src\content\FormContent.Designer.cs">
       <DependentUpon>FormContent.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\content\Packer.cs" />
     <Compile Include="src\content\Parser.cs" />
     <Compile Include="src\content\Token.cs" />
     <Compile Include="src\content\TrainzObject.cs" />

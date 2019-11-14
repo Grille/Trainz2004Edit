@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace TRS2004Edit
 {
@@ -10,6 +11,13 @@ namespace TRS2004Edit
 
         public ContentManager()
         {
+            Objects = new List<TrainzObject>();
+        }
+
+        public void Load()
+        {
+            Objects.Clear();
+
             string[] directories = Directory.GetDirectories("./World/Custom");
             List<string> paths = new List<string>();
 
@@ -17,16 +25,16 @@ namespace TRS2004Edit
             {
                 paths.AddRange(Directory.GetDirectories(directory));
             }
-            Objects = new List<TrainzObject>(paths.Count);
             foreach (var path in paths)
             {
                 try
                 {
-                    string text = File.ReadAllText(path + "/config.txt");
+                    string text = File.ReadAllText(path + "/config.txt", Encoding.UTF8);
                     Console.WriteLine(path);
                     var obj = Parser.Parse(text);
                     obj.Path = path;
                     Objects.Add(obj);
+                    Console.WriteLine(Packer.Pack(obj));
                     Console.WriteLine("________________");
                 }
                 catch (Exception e)
@@ -35,10 +43,21 @@ namespace TRS2004Edit
                     Console.WriteLine("ERROR -> " + e.Message);
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
-                
+
             }
         }
-        
+        public void Save()
+        {
+            foreach (var obj in Objects)
+            {
+                if (obj.Changed == true)
+                {
+                    string config = Packer.Pack(obj);
+                    File.WriteAllText(obj.Path + "/config.txt", config, Encoding.UTF8);
+                }
+            }
+        }
+
         public TrainzObject SearchKUID(string kuid)
         {
             foreach (var property in Objects)
@@ -62,6 +81,6 @@ namespace TRS2004Edit
             }
             return null;
         }
-        
+
     }
 }
