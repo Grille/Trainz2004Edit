@@ -29,59 +29,117 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormContent));
-            this.trainzButton1 = new TRS2004Edit.TrainzButton();
-            this.trainzButton2 = new TRS2004Edit.TrainzButton();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // trainzButton1
+            // dataGridView
             // 
-            this.trainzButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.trainzButton1.BackColor = System.Drawing.Color.Transparent;
-            this.trainzButton1.Font = new System.Drawing.Font("Bahnschrift Light SemiCondensed", 18F);
-            this.trainzButton1.Location = new System.Drawing.Point(476, 539);
-            this.trainzButton1.Margin = new System.Windows.Forms.Padding(4);
-            this.trainzButton1.MaximumSize = new System.Drawing.Size(512, 32);
-            this.trainzButton1.MinimumSize = new System.Drawing.Size(32, 32);
-            this.trainzButton1.Name = "trainzButton1";
-            this.trainzButton1.Size = new System.Drawing.Size(172, 32);
-            this.trainzButton1.TabIndex = 2;
-            this.trainzButton1.Text = "Beenden";
-            this.trainzButton1.Click += new System.EventHandler(this.trainzButtonClose_Click);
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(208, 12);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(441, 561);
+            this.dataGridView.TabIndex = 4;
             // 
-            // trainzButton2
+            // button1
             // 
-            this.trainzButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.trainzButton2.BackColor = System.Drawing.Color.Transparent;
-            this.trainzButton2.Font = new System.Drawing.Font("Bahnschrift Light SemiCondensed", 18F);
-            this.trainzButton2.Location = new System.Drawing.Point(476, 499);
-            this.trainzButton2.Margin = new System.Windows.Forms.Padding(4);
-            this.trainzButton2.MaximumSize = new System.Drawing.Size(512, 32);
-            this.trainzButton2.MinimumSize = new System.Drawing.Size(32, 32);
-            this.trainzButton2.Name = "trainzButton2";
-            this.trainzButton2.Size = new System.Drawing.Size(172, 32);
-            this.trainzButton2.TabIndex = 3;
-            this.trainzButton2.Text = "Kopiren";
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(12, 550);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Close";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.trainzButtonClose_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(190, 68);
+            this.textBox1.TabIndex = 6;
+            this.textBox1.Text = "SELECT name, username, kind\r\nWHERE kind = map\r\n";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(110, 86);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(92, 23);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Submit";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.buttonSubmit_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(12, 86);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(92, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "Clear";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button4.Location = new System.Drawing.Point(12, 521);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(190, 23);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "Save";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button5.Location = new System.Drawing.Point(12, 492);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(190, 23);
+            this.button5.TabIndex = 10;
+            this.button5.Text = "Reset";
+            this.button5.UseVisualStyleBackColor = true;
             // 
             // FormContent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::TRS2004Edit.Properties.Resources.readmeback;
             this.ClientSize = new System.Drawing.Size(661, 584);
-            this.Controls.Add(this.trainzButton2);
-            this.Controls.Add(this.trainzButton1);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dataGridView);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FormContent";
             this.Text = "TRS2004 Content Manager";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private TrainzButton trainzButton1;
-        private TrainzButton trainzButton2;
+        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }

@@ -28,10 +28,10 @@ namespace TRS2004Edit
             get { return Path; }
             set { Path = value; }
         }
-        public string this[string i]
+        public TrainzProperty this[string name]
         {
-            get { return Path; }
-            set { Path = value; }
+            get { return Get(name); }
+            set { Set(name, value); }
         }
         public bool Exists(string name)
         {
@@ -48,8 +48,22 @@ namespace TRS2004Edit
         {
             objects.Add(value);
         }
+        public void Set(string name, TrainzProperty property)
+        {
+            name = name.ToLower();
+            for (int i = 0;i< properties.Count;i++)
+            {
+                if (properties[i].Name == name)
+                {
+                    properties[i] = property;
+                    return;
+                }
+            }
+            properties.Add(property);
+        }
         public void Set(string name, string value, PropertyType type)
         {
+            name = name.ToLower();
             foreach (var property in properties)
             {
                 if (property.Name == name)
@@ -62,6 +76,7 @@ namespace TRS2004Edit
         }
         public TrainzProperty Get(string name)
         {
+            name = name.ToLower();
             foreach (var property in properties)
             {
                 if (property.Name == name)

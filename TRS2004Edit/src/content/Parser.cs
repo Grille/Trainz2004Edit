@@ -56,7 +56,7 @@ namespace TRS2004Edit
                     {
                         if (count == 0)
                         {
-                            tokens.Add(new Token(TokenType.Identifier, "" + data.Substring(start, end - start + 1)));
+                            tokens.Add(new Token(TokenType.Identifier, "" + data.Substring(start, end - start + 1).ToLower()));
                             count = 1;
                         }
                         else
@@ -73,6 +73,7 @@ namespace TRS2004Edit
                 }
             }
 
+            /*
             foreach (var token in tokens)
             {
                 switch (token.Type)
@@ -96,6 +97,8 @@ namespace TRS2004Edit
                 }
             }
             Console.ForegroundColor = ConsoleColor.Gray;
+            */
+
             return tokens;
         }
         public TrainzObject ParseFile(string path)
@@ -108,10 +111,10 @@ namespace TRS2004Edit
             var tokens = Tokenize(text);
             return parse(tokens, ref index);
         }
-        private TrainzObject parse(List<Token> tokens, ref int i,string name = null)
+        private TrainzObject parse(List<Token> tokens, ref int i, string name = null)
         {
             var obj = new TrainzObject(name);
-            while (i < tokens.Count-1)
+            while (i < tokens.Count - 1)
             {
                 var token0 = tokens[i];
                 var token1 = tokens[i + 1];
@@ -119,13 +122,11 @@ namespace TRS2004Edit
                 if (token0.Type == TokenType.Symbol && token0.Value == "}")
                 {
                     i += 1;
-                    Console.WriteLine("}");
                     break;
                 }
                 else if (token0.Type == TokenType.Identifier && token1.Type == TokenType.Symbol && token1.Value == "{")
                 {
                     i += 2;
-                    Console.WriteLine(token0.Value + "={");
                     var value = parse(tokens, ref i, token0.Value);
                     obj.Add(token0.Value, value);
                 }
@@ -133,43 +134,13 @@ namespace TRS2004Edit
                 {
                     i += 2;
                     obj.Set(token0.Value, token1.Value, PropertyType.Number);
-                    Console.WriteLine(token0.Value + "=" + token1.Value);
+                }
+                else
+                {
+                    i += 1;
                 }
             }
             return obj;
         }
-        /*
-        public TrainzObject Parse(string text)
-        {
-            Tokenize(text);
-
-            var obj = new TrainzObject();
-            int scope = 0;
-
-            for (int i = 0; i < tokens.Count; i++)
-            {
-                var token = tokens[i];
-
-                if (token.Typ == TokenTyp.Symbol && token.Value == "{")
-                    scope += 1;
-                else if (token.Typ == TokenTyp.Symbol && token.Value == "}")
-                    scope -= 1;
-                else if (token.Typ == TokenTyp.Identifier && tokens[i + 1].Typ == TokenTyp.Symbol && tokens[i + 1].Value == "{")
-                {
-                    var Identifier = token;
-                    var Value = tokens[i + 1];
-                    Console.WriteLine(Identifier.Value + " = " + Value.Value);
-                }
-                else if (token.Typ == TokenTyp.Identifier && tokens[i + 1].Typ != TokenTyp.Symbol)
-                {
-                    var Identifier = token;
-                    var Value = tokens[i + 1];
-                    Console.WriteLine(Identifier.Value + " = "+ Value.Value);
-                }
-            }
-
-            return obj;
-        }
-        */
     }
 }
