@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 
 namespace TRS2004Edit
 {
+    [DefaultEvent("Click")]
     public partial class TrainzButton : UserControl
     {
         private int mouseState = 0;

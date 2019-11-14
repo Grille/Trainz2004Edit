@@ -29,22 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormContent));
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.trainzButton1 = new TRS2004Edit.TrainzButton();
             this.trainzButton2 = new TRS2004Edit.TrainzButton();
             this.SuspendLayout();
-            // 
-            // treeView1
-            // 
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.treeView1.BackColor = System.Drawing.Color.Black;
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.treeView1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.treeView1.Location = new System.Drawing.Point(12, 12);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(438, 560);
-            this.treeView1.TabIndex = 1;
             // 
             // trainzButton1
             // 
@@ -59,6 +46,7 @@
             this.trainzButton1.Size = new System.Drawing.Size(172, 32);
             this.trainzButton1.TabIndex = 2;
             this.trainzButton1.Text = "Beenden";
+            this.trainzButton1.Click += new System.EventHandler(this.trainzButtonClose_Click);
             // 
             // trainzButton2
             // 
@@ -82,7 +70,7 @@
             this.ClientSize = new System.Drawing.Size(661, 584);
             this.Controls.Add(this.trainzButton2);
             this.Controls.Add(this.trainzButton1);
-            this.Controls.Add(this.treeView1);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -93,7 +81,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.TreeView treeView1;
         private TrainzButton trainzButton1;
         private TrainzButton trainzButton2;
     }

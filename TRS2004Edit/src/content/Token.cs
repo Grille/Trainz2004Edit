@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace TRS2004Edit
 {
-    public enum TokenTyp { Identifier, Value,String, Symbol }
+    public enum TokenType { Identifier, Value, String, Symbol }
     public struct Token
     {
         public string Value;
-        public TokenTyp Typ;
-        public Token(TokenTyp typ,string value)
+        public TokenType Type;
+        public Token(TokenType typ, string value)
         {
             Value = value;
-            Typ = typ;
+            Type = typ;
         }
 
 
@@ -29,7 +29,7 @@ namespace TRS2004Edit
         public override bool Equals(object obj)
         {
             var token = (Token)obj;
-            return Value == token.Value && Typ == token.Typ;
+            return Value == token.Value && Type == token.Type;
         }
     }
 }

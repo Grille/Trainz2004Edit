@@ -27,7 +27,7 @@ namespace TRS2004Edit
             {
                 try
                 {
-                    string text = File.ReadAllText(path+"/config.txt");
+                    string text = File.ReadAllText(path + "/config.txt");
                     var obj = Parser.Parse(text);
                     obj.Path = path;
                     Objects.Add(obj);
@@ -36,11 +36,13 @@ namespace TRS2004Edit
                 catch (Exception e)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(path + " -> "+e.Message);
+                    Console.WriteLine(path + " -> " + e.Message);
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
+                
             }
         }
+        /*
         public TrainzProperty SearchKUID(string kuid)
         {
             foreach (var property in Objects)
@@ -64,5 +66,6 @@ namespace TRS2004Edit
             }
             return null;
         }
+        */
     }
 }

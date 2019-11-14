@@ -5,13 +5,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{86FF1016-897E-42D6-9E60-60EEE9D8656D}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>TRS2004Edit</RootNamespace>
     <AssemblyName>TRS2004Edit</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Settings.cs" />
     <Compile Include="src\content\ContentManager.cs" />
     <Compile Include="src\content\FormContent.cs">
       <SubType>Form</SubType>
@@ -130,12 +132,6 @@
     <None Include="Resources\lamp.png" />
     <None Include="Resources\lampG.png" />
     <None Include="Resources\lampR.png" />
-    <None Include="data\background.png" />
-    <None Include="data\lamp.png" />
-    <None Include="data\lampG.png" />
-    <None Include="data\lampR.png" />
-    <None Include="data\lampY.png" />
-    <None Include="data\editor.ico" />
     <Content Include="editor.ico" />
   </ItemGroup>
   <ItemGroup />

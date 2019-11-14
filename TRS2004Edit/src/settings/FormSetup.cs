@@ -19,9 +19,12 @@ namespace TRS2004Edit
         public FormSetup()
         {
             InitializeComponent();
+            comboBoxRes.Items.Add("640 x 480");
+            comboBoxRes.Items.Add("800 x 600");
+            comboBoxRes.Items.Add("1280 x 720");
+            comboBoxRes.Items.Add("1920 x 1080");
             load();
             read();
-
         }
         void load()
         {
@@ -40,8 +43,6 @@ namespace TRS2004Edit
         }
         void save()
         {
-
-
             if (File.Exists("tuning.dat"))
             {
                 File.WriteAllBytes("tuning.dat", tuning);
@@ -75,19 +76,19 @@ namespace TRS2004Edit
                 if (options[i].Split('=')[0] == '-' + name)
                     options[i] = "";
         }
-        void setOption(string name,string value)
+        void setOption(string name, string value)
         {
             for (int i = 0; i < options.Length; i++)
             {
-                if (options[i].Length==0||options[i].Split('=')[0] == '-'+name)
+                if (options[i].Length == 0 || options[i].Split('=')[0] == '-' + name)
                 {
                     options[i] = '-' + name;
-                    if (value!=null) options[i] += '=' + value;
+                    if (value != null) options[i] += '=' + value;
                     return;
                 }
             }
             Array.Resize(ref options, options.Length + 1);
-            options[options.Length-1] = '-'+name;
+            options[options.Length - 1] = '-' + name;
             if (value != null) options[options.Length - 1] += '=' + value;
         }
         void setOption(string name, bool value)
@@ -98,7 +99,7 @@ namespace TRS2004Edit
         string getOption(string name)
         {
             for (int i = 0; i < options.Length; i++)
-                if (options[i].Split('=')[0] == '-'+name)
+                if (options[i].Split('=')[0] == '-' + name)
                     return options[i].Split('=')[1];
             return null;
         }
@@ -114,7 +115,7 @@ namespace TRS2004Edit
         {
             comboBoxRes.SelectedIndex = 0;
             string res = getOption("width") + " x " + getOption("height");
-            for (int i = 0;i<comboBoxRes.Items.Count;i++)
+            for (int i = 0; i < comboBoxRes.Items.Count; i++)
                 if ((string)comboBoxRes.Items[i] == res)
                     comboBoxRes.SelectedIndex = i;
             checkBoxFullscreen.Checked = existsOption("fullscreen");
@@ -189,5 +190,9 @@ namespace TRS2004Edit
             }
         }
 
+        private void FormSetup_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

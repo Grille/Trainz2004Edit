@@ -19,26 +19,20 @@ namespace TRS2004Edit
             InitializeComponent();
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
+        private void buttonClose_Click(object sender, EventArgs e) =>
             Application.Exit();
-        }
 
-        private void buttonSetting_Click(object sender, EventArgs e)
-        {
+        private void buttonSetting_Click(object sender, EventArgs e) =>
             new FormSetup().ShowDialog(this);
-        }
 
-        private void buttonContent_Click(object sender, EventArgs e)
-        {
+        private void buttonContent_Click(object sender, EventArgs e) =>
             new FormContent().ShowDialog(this);
-        }
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
             Process pProcess = new Process();
             pProcess.StartInfo.FileName = Path.GetFullPath("./Bin/Trainz.exe");
-            pProcess.StartInfo.Arguments = "-1024 -ColorBits=32 -GlobalTextureResolution=0 -Render=DirectX9 -DisableStencil -ResourceMemory=4096";
+            pProcess.StartInfo.Arguments = "-1920 -ColorBits=16 -GlobalTextureResolution=0 -Render=DirectX -ResourceMemory=4096";
             pProcess.Start();
             Application.Exit();
         }
@@ -66,5 +60,6 @@ namespace TRS2004Edit
             pProcess.Start();
             Application.Exit();
         }
+
     }
 }
