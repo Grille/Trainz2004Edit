@@ -34,7 +34,6 @@ namespace TRS2004Edit
                     var obj = Parser.Parse(text);
                     obj.Path = path;
                     Objects.Add(obj);
-                    Console.WriteLine(Packer.Pack(obj));
                     Console.WriteLine("________________");
                 }
                 catch (Exception e)

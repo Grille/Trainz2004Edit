@@ -30,7 +30,7 @@ namespace TRS2004Edit
                     var value = parse(tokens, ref i, token0.Value);
                     obj.Objects.Add(value);
                 }
-                else if (token0.Type == TokenType.Identifier && token1.Type != TokenType.Symbol)
+                else if (token0.Type == TokenType.Identifier && token1.Type != TokenType.Symbol && token1.Type != TokenType.Identifier)
                 {
                     i += 2;
                     var type = token1.Type == TokenType.String ? PropertyType.String : PropertyType.Number;
