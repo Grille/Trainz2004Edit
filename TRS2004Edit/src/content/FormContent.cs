@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
 using System.IO;
+using System.ComponentModel;
 
 namespace TRS2004Edit
 {
@@ -66,7 +67,12 @@ namespace TRS2004Edit
 
         private void button5_Click(object sender, EventArgs e)
         {
+            var order = (int)dataGridView.SortOrder;
+            var column = dataGridView.SortedColumn;
             content.Load();
+            buttonSubmit_Click(null, null);
+            if (order != 0)
+                dataGridView.Sort(column, (ListSortDirection)(order - 1));
         }
 
         private void button4_Click(object sender, EventArgs e)
