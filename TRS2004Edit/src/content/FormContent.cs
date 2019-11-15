@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Diagnostics;
+using System.IO;
 
 namespace TRS2004Edit
 {
@@ -20,7 +24,7 @@ namespace TRS2004Edit
             if (obj.Exists(name))
                 return obj.Get(name).Value;
             else
-                return ((char)834) + " undefined " + ((char)834);
+                return "";
         }
 
         private void trainzButtonClose_Click(object sender, EventArgs e) => 
@@ -34,23 +38,29 @@ namespace TRS2004Edit
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            var text = textBox1.Text;
-
             dataGridView.Rows.Clear();
 
-            dataGridView.ColumnCount = 4;
+            var args = textBox1.Text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+            dataGridView.ColumnCount = args.Length + 1;
+
             dataGridView.Columns[0].Name = "<path>";
-            dataGridView.Columns[1].Name = "kuid";
-            dataGridView.Columns[2].Name = "name";
-            dataGridView.Columns[3].Name = "username";
+            dataGridView.Columns[0].Visible = false;
+
+            for (int i = 0;i< args.Length; i++)
+            {
+                args[i] = args[i].ToLower().Trim(' ', ',', '\n', '\r', '\t');
+                dataGridView.Columns[i + 1].Name = args[i];
+            }
 
             foreach (var obj in content.Objects)
             {
-                var path = obj.Path;
-                var name = getValue(obj, "name");
-                var uname = getValue(obj, "username");
-                var kind = getValue(obj, "kuid");
-                dataGridView.Rows.Add(path, kind, name, uname);
+                var values = new string[args.Length + 1];
+                values[0] = obj.Path;
+                for (int i = 0; i < args.Length; i++)
+                    values[i + 1] = obj[args[i]];
+
+                dataGridView.Rows.Add(values);
             }
         }
 
@@ -62,6 +72,33 @@ namespace TRS2004Edit
         private void button4_Click(object sender, EventArgs e)
         {
             content.Save();
+        }
+
+        private void FormContent_ResizeBegin(object sender, EventArgs e)
+        {
+            for (int i = 1; i < dataGridView.Columns.Count; i++)
+            {
+                dataGridView.Columns[i].Visible = false;
+            }
+        }
+        private void FormContent_ResizeEnd(object sender, EventArgs e)
+        {
+            for (int i = 1; i < dataGridView.Columns.Count; i++)
+            {
+                dataGridView.Columns[i].Visible = true;
+            }
+        }
+
+        private void buttonOpen_Click(object sender, EventArgs e)
+        {
+            string path = Path.GetFullPath((string)dataGridView.SelectedRows[0].Cells[0].Value);
+            Process.Start("explorer.exe", path);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string path = Path.GetFullPath((string)dataGridView.SelectedRows[0].Cells[0].Value);
+            Process.Start(path + "/config.txt");
         }
     }
 }

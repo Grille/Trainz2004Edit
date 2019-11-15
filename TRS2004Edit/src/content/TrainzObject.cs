@@ -21,14 +21,10 @@ namespace TRS2004Edit
             Objects = new List<TrainzObject>();
         }
 
-        public string this[int i]
+        public string this[string name]
         {
-            get { return Path; }
-            set { Path = value; }
-        }
-        public TrainzProperty this[string name]
-        {
-            get { return Get(name); }
+            get { return GetValue(name); }
+            set { SetValue(name, value); }
         }
         public bool Exists(string name)
         {
@@ -41,10 +37,6 @@ namespace TRS2004Edit
                 }
             }
             return false;
-        }
-        public void Add(TrainzObject value)
-        {
-            Objects.Add(value);
         }
         public void Set(TrainzProperty property)
         {
@@ -59,18 +51,25 @@ namespace TRS2004Edit
             }
             Properties.Add(property);
         }
-        public void Set(string name, string value, PropertyType type)
+        public bool SetValue(string name, string value)
         {
-            name = name.ToLower();
-            foreach (var property in Properties)
+            for (int i = 0; i < Properties.Count; i++)
             {
-                if (property.Name == name)
+                if (Properties[i].Name.ToLower() == name.ToLower())
                 {
-                    property.Value = value;
-                    return;
+                    Properties[i].Value = value;
+                    return true;
                 }
             }
-            Properties.Add(new TrainzProperty(name, value, type));
+            return false;
+        }
+        public void Set(string name, string value, PropertyType type = PropertyType.Number)
+        {
+            Set(new TrainzProperty(name, value, type));
+        }
+        public string GetValue(string name)
+        {
+            return Exists(name) ? Get(name).Value : "";
         }
         public TrainzProperty Get(string name)
         {
