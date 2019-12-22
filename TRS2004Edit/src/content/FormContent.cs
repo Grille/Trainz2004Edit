@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
@@ -28,8 +29,10 @@ namespace TRS2004Edit
                 return "";
         }
 
-        private void trainzButtonClose_Click(object sender, EventArgs e) => 
+        private void trainzButtonClose_Click(object sender, EventArgs e)
+        {
             Close();
+        }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
@@ -40,28 +43,38 @@ namespace TRS2004Edit
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
             dataGridView.Rows.Clear();
+            Parser.ParseQuery(textBox1.Text, out List<string> names, out List<QueryCondition> conditions);
 
-            var args = textBox1.Text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
-            dataGridView.ColumnCount = args.Length + 1;
+            dataGridView.ColumnCount = names.Count + 1;
 
             dataGridView.Columns[0].Name = "<path>";
             dataGridView.Columns[0].Visible = false;
 
-            for (int i = 0;i< args.Length; i++)
+            for (int i = 0;i< names.Count; i++)
             {
-                args[i] = args[i].ToLower().Trim(' ', ',', '\n', '\r', '\t');
-                dataGridView.Columns[i + 1].Name = args[i];
+                dataGridView.Columns[i + 1].Name = names[i];
             }
 
             foreach (var obj in content.Objects)
             {
-                var values = new string[args.Length + 1];
+                var values = new string[names.Count + 1];
                 values[0] = obj.Path;
-                for (int i = 0; i < args.Length; i++)
-                    values[i + 1] = obj[args[i]];
-
-                dataGridView.Rows.Add(values);
+                for (int i = 0; i < names.Count; i++)
+                {
+                    var name = names[i];
+                    values[i + 1] = obj[name];
+                }
+                bool visible = true;
+                foreach (var condition in conditions)
+                {
+                    visible &= values[condition.Index + 1] == condition.Value;
+                    Console.WriteLine(values[condition.Index]);
+                    Console.WriteLine(condition.Value);
+                }
+                if (visible)
+                {
+                    dataGridView.Rows.Add(values);
+                }
             }
         }
 
@@ -105,6 +118,11 @@ namespace TRS2004Edit
         {
             string path = Path.GetFullPath((string)dataGridView.SelectedRows[0].Cells[0].Value);
             Process.Start(path + "/config.txt");
+        }
+
+        private void FormContent_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

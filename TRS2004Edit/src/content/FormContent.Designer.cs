@@ -176,6 +176,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormContent";
             this.Text = "TRS2004 Content Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormContent_FormClosed);
             this.ResizeBegin += new System.EventHandler(this.FormContent_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.FormContent_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

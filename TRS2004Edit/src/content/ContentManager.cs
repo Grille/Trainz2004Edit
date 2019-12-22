@@ -31,7 +31,7 @@ namespace TRS2004Edit
                 {
                     string text = File.ReadAllText(path + "/config.txt", Encoding.UTF8);
                     Console.WriteLine(path);
-                    var obj = Parser.Parse(text);
+                    var obj = Parser.ParseConfig(text);
                     obj.Path = path;
                     Objects.Add(obj);
                     Console.WriteLine("________________");

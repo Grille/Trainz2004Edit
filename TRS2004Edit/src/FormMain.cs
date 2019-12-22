@@ -25,9 +25,11 @@ namespace TRS2004Edit
         private void buttonSetting_Click(object sender, EventArgs e) =>
             new FormSetup().ShowDialog(this);
 
-        private void buttonContent_Click(object sender, EventArgs e) =>
-            new FormContent().ShowDialog(this);
-
+        private void buttonContent_Click(object sender, EventArgs e)
+        {       
+            new FormContent().Show(this);
+            Hide();
+        }
         private void buttonPlay_Click(object sender, EventArgs e)
         {
             Process pProcess = new Process();

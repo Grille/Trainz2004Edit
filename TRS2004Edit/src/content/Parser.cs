@@ -3,15 +3,48 @@ using System.Collections.Generic;
 
 namespace TRS2004Edit
 {
+    public class QueryCondition
+    {
+        public string Name;
+        public string Operator;
+        public string Value;
+        public int Index;
+        public QueryCondition(string name, string op, string value)
+        {
+            Name = name.ToLower(); Operator = op.ToLower(); Value = value.ToLower(); Index = -1;
+        }
+    }
     public static class Parser
     {
-        static public TrainzObject Parse(string text)
+        static public void ParseQuery(string text,out List<string> names, out List<QueryCondition> conditions)
+        {
+            var tokens = tokenizeConfig(text);
+            names = new List<string>();
+            conditions = new List<QueryCondition>();
+            var args = text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var arg in args)
+            {
+                names.Add(arg.ToLower().Trim(' ', ',', '\n', '\r', '\t'));
+            }
+            foreach (var condition in conditions)
+            {
+                var name = condition.Name;
+                for (int i = 0;i< names.Count; i++)
+                {
+                    if (name == names[i])
+                    {
+                        condition.Index = i;
+                    }
+                }
+            }
+        }
+        static public TrainzObject ParseConfig(string text)
         {
             int index = 0;
-            var tokens = tokenize(text);
-            return parse(tokens, ref index);
+            var tokens = tokenizeConfig(text);
+            return parseConfig(tokens, ref index);
         }
-        static private TrainzObject parse(List<Token> tokens, ref int i, string name = null)
+        static private TrainzObject parseConfig(List<Token> tokens, ref int i, string name = null)
         {
             var obj = new TrainzObject(name);
             while (i < tokens.Count - 1)
@@ -27,7 +60,7 @@ namespace TRS2004Edit
                 else if (token0.Type == TokenType.Identifier && token1.Type == TokenType.Symbol && token1.Value == "{")
                 {
                     i += 2;
-                    var value = parse(tokens, ref i, token0.Value);
+                    var value = parseConfig(tokens, ref i, token0.Value);
                     obj.Objects.Add(value);
                 }
                 else if (token0.Type == TokenType.Identifier && token1.Type != TokenType.Symbol && token1.Type != TokenType.Identifier)
@@ -43,7 +76,7 @@ namespace TRS2004Edit
             }
             return obj;
         }
-        static private List<Token> tokenize(string data)
+        static private List<Token> tokenizeConfig(string data)
         {
             int count = 0;
             var tokens = new List<Token>();
