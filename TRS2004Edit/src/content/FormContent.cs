@@ -124,5 +124,10 @@ namespace TRS2004Edit
         {
             Application.Exit();
         }
+        private void dataGridView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            string path = Path.GetFullPath((string)dataGridView.SelectedRows[0].Cells[0].Value);
+            Process.Start("explorer.exe", path);
+        }
     }
 }
