@@ -1,12 +1,14 @@
 ﻿namespace TRS2004Edit
 {
-    public enum TokenType { Identifier, Value, String, Symbol }
+    public enum TokenType { None, Identifier, Value, String }
     public struct Token
     {
+        public int Line;
         public string Value;
         public TokenType Type;
-        public Token(TokenType typ, string value)
+        public Token(int line, TokenType typ, string value)
         {
+            Line = line;
             Value = value;
             Type = typ;
         }

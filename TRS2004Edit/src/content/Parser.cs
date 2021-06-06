@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TRS2004Edit
 {
@@ -18,7 +19,8 @@ namespace TRS2004Edit
     {
         static public void ParseQuery(string text,out List<string> names, out List<QueryCondition> conditions)
         {
-            var tokens = tokenizeConfig(text);
+
+            var tokens = new string[] { };// tokenizeConfig(text);
             names = new List<string>();
             conditions = new List<QueryCondition>();
             var args = text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
@@ -37,129 +39,132 @@ namespace TRS2004Edit
                     }
                 }
             }
+            
         }
-        static public TrainzObject ParseConfig(string text)
-        {
-            int index = 0;
-            var tokens = tokenizeConfig(text);
-            return parseConfig(tokens, ref index);
-        }
-        static private TrainzObject parseConfig(List<Token> tokens, ref int i, string name = null)
-        {
-            var obj = new TrainzObject(name);
-            while (i < tokens.Count - 1)
-            {
-                var token0 = tokens[i];
-                var token1 = tokens[i + 1];
 
-                if (token0.Type == TokenType.Symbol && token0.Value == "}")
+
+        static public List<Token> Tokenize(string input)
+        {
+            
+            var tokens = new List<Token>();
+            int begin = 0;
+            int line = 1;
+            var mode = TokenType.None;
+            var next = TokenType.Identifier;
+            for (int i = 0; i < input.Length; i++)
+            {
+                int length = i - begin;
+                char ch = input[i];
+                switch (mode)
                 {
-                    i += 1;
+                    case TokenType.None:
+                        if (ch == '"')
+                        {
+                            begin = i;
+                            mode = TokenType.String;
+                        }
+                        else if (ch == '\n' || ch == '\r')
+                        {
+                            next = TokenType.Identifier;
+                            line += 1;
+                        }
+                        else if (ch != ' ' && ch != '\t')
+                        {
+                            begin = i;
+                            mode = next;
+                        }
+                        break;
+                    case TokenType.String:
+                        if (ch == '"')
+                        {
+                            string value = input.Substring(begin, length + 1);
+                            tokens.Add(new Token(line, mode, value));
+                            next = TokenType.Value;
+                            mode = TokenType.None;
+                        }
+                        break;
+                    case TokenType.Value:
+                        if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r')
+                        {
+                            string value = input.Substring(begin, length);
+                            tokens.Add(new Token(line, mode, value));
+                            mode = TokenType.None;
+                        }
+                        break;
+                    case TokenType.Identifier:
+                        if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r')
+                        {
+                            string value = input.Substring(begin, length);
+                            tokens.Add(new Token(line, mode, value));
+                            next = TokenType.Value;
+                            mode = TokenType.None;
+                        }
+                        break;
+                }
+            }
+            return tokens;
+        }
+
+        static public TrainzObject Parse(string config)
+        {
+            var tokens = Tokenize(config);
+            int pos = 0;
+            return parseObj(tokens, ref pos);
+        }
+
+        static private TrainzObject parseObj(List<Token> tokens, ref int pos)
+        {
+            var obj = new TrainzObject();
+
+            while (pos < tokens.Count - 1)
+            {
+                var token = tokens[pos++];
+                var nexttoken = tokens[pos];
+                if (token.Value == "}")
+                {
                     break;
                 }
-                else if (token0.Type == TokenType.Identifier && token1.Type == TokenType.Symbol && token1.Value == "{")
+                else if (token.Type == TokenType.Identifier && nexttoken.Type != TokenType.Identifier)
                 {
-                    i += 2;
-                    var value = parseConfig(tokens, ref i, token0.Value);
-                    obj.Objects.Add(value);
-                }
-                else if (token0.Type == TokenType.Identifier && token1.Type != TokenType.Symbol && token1.Type != TokenType.Identifier)
-                {
-                    i += 2;
-                    var type = token1.Type == TokenType.String ? PropertyType.String : PropertyType.Number;
-                    obj.Set(token0.Value, token1.Value, type);
-                }
-                else
-                {
-                    i += 1;
+                    var key = token.Value;
+                    var value = tokens[pos++];
+                    try
+                    {
+                        if (value.Value == "{")
+                        {
+                            obj.Objects.Add(key, parseObj(tokens, ref pos));
+                        }
+                        else
+                        {
+                            obj.Properties.Add(key, getProp(value));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception($"{e.Message}\n{token.Line}: {key} = {value.Value}{e.StackTrace}");
+                    }
                 }
             }
             return obj;
         }
-        static private List<Token> tokenizeConfig(string data)
+
+        static private TrainzProperty getProp(Token token)
         {
-            int count = 0;
-            var tokens = new List<Token>();
-            for (int i = 0; i < data.Length; i++)
+            string value = token.Value;
+            switch (token.Type)
             {
-                if (data[i] == '\n')
-                    count = 0;
-                if (data[i] == '"')
-                {
-                    i += 1;
-                    int start = i, end = 0;
-                    while (data[i] != '"')
-                    {
-                        end = i++;
-                    }
-                    if (end != 0)
-                        tokens.Add(new Token(TokenType.String, "" + data.Substring(start, end - start + 1)));
-                    else
-                        tokens.Add(new Token(TokenType.String, ""));
-                }
-                else if (data[i] == '{' || data[i] == '}')
-                {
-                    tokens.Add(new Token(TokenType.Symbol, "" + data[i]));
-                }
-                else if (data[i] == '\n' || data[i] == ' ' || data[i] == '\r' || data[i] == ';' || data[i] == ';' || data[i] == '\t')
-                {
-                }
-                else
-                {
-                    int start = i, end = 0;
-                    while ((data[i] >= 65 && data[i] <= 90) || (data[i] >= 97 && data[i] <= 122) || (data[i] >= 48 && data[i] <= 57) || data[i] == 95 || data[i] == 46 || data[i] == '<' || data[i] == '>' || data[i] == ':' || data[i] == '-' || data[i] == ',')
-                    {
-                        end = i++;
-                    }
-                    i -= 1;
-                    if (end != 0)
-                    {
-                        if (count == 0)
-                        {
-                            tokens.Add(new Token(TokenType.Identifier, "" + data.Substring(start, end - start + 1).ToLower()));
-                            count = 1;
-                        }
-                        else
-                        {
-                            tokens.Add(new Token(TokenType.Value, "" + data.Substring(start, end - start + 1)));
-                            count = 0;
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Unexpected symbol \"" + data[i + 1] + "\"");
-                    }
-
-                }
+                case TokenType.Value:
+                    char ch = value[0];
+                    if (ch >= '0' && ch <= '9')
+                        return new TrainzProperty(value, PropertyType.Number);
+                    if (ch == '<')
+                        return new TrainzProperty(value, PropertyType.KUID);
+                    break;
+                case TokenType.String:
+                    return new TrainzProperty(value.Trim('"'), PropertyType.String);      
             }
-
-            /*
-            foreach (var token in tokens)
-            {
-                switch (token.Type)
-                {
-                    case TokenType.Identifier:
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write(token.Value + " ");
-                        break;
-                    case TokenType.Value:
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(token.Value);
-                        break;
-                    case TokenType.String:
-                        Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.WriteLine(token.Value);
-                        break;
-                    case TokenType.Symbol:
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine(token.Value);
-                        break;
-                }
-            }
-            Console.ForegroundColor = ConsoleColor.Gray;
-            */
-
-            return tokens;
+            return new TrainzProperty(value, PropertyType.None);
         }
+
     }
 }

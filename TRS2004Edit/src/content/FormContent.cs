@@ -25,13 +25,7 @@ namespace TRS2004Edit
             Text = "TRS2004 Content Manager " + gamePath;
             buttonSubmit_Click(null, null);
         }
-        private string getValue(TrainzObject obj,string name)
-        {
-            if (obj.Exists(name))
-                return obj.Get(name).Value;
-            else
-                return "";
-        }
+
 
         private void trainzButtonClose_Click(object sender, EventArgs e)
         {
@@ -61,12 +55,16 @@ namespace TRS2004Edit
 
             foreach (var obj in content.Objects)
             {
+                
                 var values = new string[names.Count + 1];
                 values[0] = obj.Path;
                 for (int i = 0; i < names.Count; i++)
                 {
                     var name = names[i];
-                    values[i + 1] = obj[name];
+                    if (obj.Properties.ContainsKey(name))
+                        values[i + 1] = obj.Properties[name].Value;
+                    else
+                        values[i + 1] = "-";
                 }
                 bool visible = true;
                 foreach (var condition in conditions)
@@ -79,6 +77,7 @@ namespace TRS2004Edit
                 {
                     dataGridView.Rows.Add(values);
                 }
+                
             }
         }
 

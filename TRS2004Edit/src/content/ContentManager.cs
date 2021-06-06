@@ -31,19 +31,18 @@ namespace TRS2004Edit
                 {
                     string text = File.ReadAllText(path + "/config.txt", Encoding.UTF8);
                     Console.WriteLine(path);
-                    var obj = Parser.ParseConfig(text);
+                    var obj = Parser.Parse(text);
                     obj.Path = path;
                     Objects.Add(obj);
-                    Console.WriteLine("________________");
-                }
-                catch (Exception e)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("ERROR -> " + e.Message);
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                }
-
             }
+                catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"^ {e.GetType().Name} -> {e.Message}");
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+
+        }
         }
         public void Save()
         {
@@ -61,7 +60,7 @@ namespace TRS2004Edit
         {
             foreach (var property in Objects)
             {
-                if (property.Get("kuid").Value == kuid)
+                if (property.Properties["kuid"].Value == kuid)
                     return property;
             }
             return null;
@@ -70,12 +69,12 @@ namespace TRS2004Edit
         {
             foreach (var property in Objects)
             {
-                if (property.Get("name").Value == name)
+                if (property.Properties["name"].Value == name)
                     return property;
             }
             foreach (var property in Objects)
             {
-                if (property.Get("username").Value == name)
+                if (property.Properties["username"].Value == name)
                     return property;
             }
             return null;

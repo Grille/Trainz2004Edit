@@ -9,6 +9,7 @@ namespace TRS2004Edit
     {
         static public string Pack(TrainzObject obj)
         {
+            /*
             var sb = new StringBuilder();
             foreach (var value in obj.Properties)
             {
@@ -24,6 +25,8 @@ namespace TRS2004Edit
                 sb.Append("}\n");
             }
             return sb.ToString();
+            */
+            return "";
         }
     }
 }
