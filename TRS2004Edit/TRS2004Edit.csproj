@@ -74,6 +74,7 @@
     <Compile Include="src\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\settings\BinaryView.cs" />
     <Compile Include="src\settings\FormSetup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +89,9 @@
     <Compile Include="src\control\TrainzButton.Designer.cs">
       <DependentUpon>TrainzButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\settings\half.cs" />
+    <Compile Include="src\settings\OptionsFile.cs" />
+    <Compile Include="src\settings\TuningFile.cs" />
     <EmbeddedResource Include="src\content\FormContent.resx">
       <DependentUpon>FormContent.cs</DependentUpon>
     </EmbeddedResource>

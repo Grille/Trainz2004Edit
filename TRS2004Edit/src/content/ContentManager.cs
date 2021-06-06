@@ -14,11 +14,11 @@ namespace TRS2004Edit
             Objects = new List<TrainzObject>();
         }
 
-        public void Load()
+        public void Load(string dirpath)
         {
             Objects.Clear();
 
-            string[] directories = Directory.GetDirectories("./World/Custom");
+            string[] directories = Directory.GetDirectories(dirpath);
             List<string> paths = new List<string>();
 
             foreach (var directory in directories)

@@ -12,13 +12,17 @@ namespace TRS2004Edit
     public partial class FormContent : Form
     {
         ContentManager content;
-        public FormContent()
+        string gamePath;
+        public FormContent(string gamePath)
         {
             InitializeComponent();
 
+            this.gamePath = gamePath;
+
             dataGridView.Rows.Clear();
             content = new ContentManager();
-            content.Load();
+            content.Load(Path.Combine(gamePath,"World/Custom"));
+            Text = "TRS2004 Content Manager " + gamePath;
             buttonSubmit_Click(null, null);
         }
         private string getValue(TrainzObject obj,string name)
@@ -82,7 +86,7 @@ namespace TRS2004Edit
         {
             var order = (int)dataGridView.SortOrder;
             var column = dataGridView.SortedColumn;
-            content.Load();
+            content.Load(Path.Combine(gamePath, "World/Custom"));
             buttonSubmit_Click(null, null);
             if (order != 0)
                 dataGridView.Sort(column, (ListSortDirection)(order - 1));

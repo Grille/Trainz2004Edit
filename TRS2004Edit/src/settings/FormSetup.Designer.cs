@@ -32,8 +32,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxGround = new System.Windows.Forms.ComboBox();
-            this.comboBoxScenery = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxFullscreen = new System.Windows.Forms.CheckBox();
@@ -43,9 +41,13 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.numericScenery = new System.Windows.Forms.NumericUpDown();
+            this.numericGround = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericScenery)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericGround)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -79,32 +81,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Ground View";
             // 
-            // comboBoxGround
-            // 
-            this.comboBoxGround.FormattingEnabled = true;
-            this.comboBoxGround.Items.AddRange(new object[] {
-            "1km",
-            "3km",
-            "5km",
-            "10km"});
-            this.comboBoxGround.Location = new System.Drawing.Point(93, 59);
-            this.comboBoxGround.Name = "comboBoxGround";
-            this.comboBoxGround.Size = new System.Drawing.Size(83, 21);
-            this.comboBoxGround.TabIndex = 4;
-            // 
-            // comboBoxScenery
-            // 
-            this.comboBoxScenery.FormattingEnabled = true;
-            this.comboBoxScenery.Items.AddRange(new object[] {
-            "1km",
-            "3km",
-            "5km",
-            "10km"});
-            this.comboBoxScenery.Location = new System.Drawing.Point(93, 84);
-            this.comboBoxScenery.Name = "comboBoxScenery";
-            this.comboBoxScenery.Size = new System.Drawing.Size(83, 21);
-            this.comboBoxScenery.TabIndex = 5;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -130,6 +106,7 @@
             this.checkBoxFullscreen.Size = new System.Drawing.Size(75, 20);
             this.checkBoxFullscreen.TabIndex = 10;
             this.checkBoxFullscreen.UseVisualStyleBackColor = true;
+            this.checkBoxFullscreen.CheckedChanged += new System.EventHandler(this.checkBoxFullscreen_CheckedChanged);
             // 
             // label4
             // 
@@ -160,11 +137,11 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.numericGround);
+            this.tabPage1.Controls.Add(this.numericScenery);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.comboBoxRes);
-            this.tabPage1.Controls.Add(this.comboBoxGround);
             this.tabPage1.Controls.Add(this.checkBoxFullscreen);
-            this.tabPage1.Controls.Add(this.comboBoxScenery);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label3);
@@ -195,6 +172,22 @@
             this.panel1.Size = new System.Drawing.Size(281, 314);
             this.panel1.TabIndex = 13;
             // 
+            // numericScenery
+            // 
+            this.numericScenery.DecimalPlaces = 3;
+            this.numericScenery.Location = new System.Drawing.Point(93, 84);
+            this.numericScenery.Name = "numericScenery";
+            this.numericScenery.Size = new System.Drawing.Size(83, 20);
+            this.numericScenery.TabIndex = 12;
+            // 
+            // numericGround
+            // 
+            this.numericGround.DecimalPlaces = 3;
+            this.numericGround.Location = new System.Drawing.Point(93, 59);
+            this.numericGround.Name = "numericGround";
+            this.numericGround.Size = new System.Drawing.Size(83, 20);
+            this.numericGround.TabIndex = 13;
+            // 
             // FormSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,6 +210,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericScenery)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericGround)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -225,8 +220,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxGround;
-        private System.Windows.Forms.ComboBox comboBoxScenery;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBoxFullscreen;
@@ -236,6 +229,8 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.NumericUpDown numericGround;
+        private System.Windows.Forms.NumericUpDown numericScenery;
     }
 }
 

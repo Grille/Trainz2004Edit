@@ -14,27 +14,56 @@ namespace TRS2004Edit
 {
     public partial class FormMain : Form
     {
+        OptionsFile options;
+        string gamePath;
         public FormMain()
         {
             InitializeComponent();
+            if (File.Exists("trainzoptions.txt"))
+            {
+                options = new OptionsFile("trainzoptions.txt");
+                if (options.Exists("goto"))
+                {
+                    gamePath = options.Get("goto");
+                    string filepath = Path.GetFullPath(Path.Combine(gamePath, "trainzoptions.txt"));
+                    if (File.Exists(filepath))
+                    {
+                        options.Load(filepath);
+                    }
+                    else
+                    {
+                        MessageBox.Show(filepath + " not found!");
+                    }
+                }
+                else
+                {
+                    gamePath = "";
+                }
+            }
+            else
+            {
+                MessageBox.Show("trainzoptions.txt not found!");
+            }
+            
         }
 
         private void buttonClose_Click(object sender, EventArgs e) =>
             Application.Exit();
 
         private void buttonSetting_Click(object sender, EventArgs e) =>
-            new FormSetup().ShowDialog(this);
+            new FormSetup(gamePath).ShowDialog(this);
 
         private void buttonContent_Click(object sender, EventArgs e)
         {       
-            new FormContent().Show(this);
+            new FormContent(gamePath).Show(this);
             Hide();
         }
         private void buttonPlay_Click(object sender, EventArgs e)
         {
             Process pProcess = new Process();
-            pProcess.StartInfo.FileName = Path.GetFullPath("./Bin/Trainz.exe");
-            pProcess.StartInfo.Arguments = "-1920 -ColorBits=16 -GlobalTextureResolution=0 -Render=DirectX -ResourceMemory=4096";
+            pProcess.StartInfo.FileName = Path.GetFullPath(Path.Combine(gamePath, "Bin/Trainz.exe"));
+            pProcess.StartInfo.WorkingDirectory = gamePath;
+            //pProcess.StartInfo.Arguments = "-1920 -ColorBits=16 -GlobalTextureResolution=0 -Render=DirectX -ResourceMemory=4096";
             pProcess.Start();
             Application.Exit();
         }
@@ -58,7 +87,7 @@ namespace TRS2004Edit
         private void trainzButton5_Click(object sender, EventArgs e)
         {
             Process pProcess = new Process();
-            pProcess.StartInfo.FileName = Path.GetFullPath("./TRS2004.exe");
+            pProcess.StartInfo.FileName = Path.GetFullPath(Path.Combine(gamePath, "TRS2004.exe"));
             pProcess.Start();
             Application.Exit();
         }
