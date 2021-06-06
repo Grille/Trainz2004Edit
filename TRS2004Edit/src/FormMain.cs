@@ -88,6 +88,7 @@ namespace TRS2004Edit
         {
             Process pProcess = new Process();
             pProcess.StartInfo.FileName = Path.GetFullPath(Path.Combine(gamePath, "TRS2004.exe"));
+            pProcess.StartInfo.WorkingDirectory = gamePath;
             pProcess.Start();
             Application.Exit();
         }

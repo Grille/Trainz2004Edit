@@ -15,7 +15,7 @@ namespace TRS2004Edit
     public partial class FormSetup : System.Windows.Forms.Form
     {
         OptionsFile options;
-        BinaryView tuning;
+        TuningFile tuning;
         string gamePath;
         public FormSetup(string gamePath)
         {
@@ -36,7 +36,7 @@ namespace TRS2004Edit
         {
             if (File.Exists(Path.Combine(gamePath,"Settings/tuning.dat")))
             {
-                tuning = new BinaryView(File.ReadAllBytes(Path.Combine(gamePath, "Settings/tuning.dat")));
+                tuning = new TuningFile(Path.Combine(gamePath, "Settings/tuning.dat"));
                 options = new OptionsFile(Path.Combine(gamePath, "trainzoptions.txt"));
             }
             else
@@ -46,7 +46,7 @@ namespace TRS2004Edit
         {
             if (File.Exists(Path.Combine(gamePath, "Settings/tuning.dat")))
             {
-                File.WriteAllBytes(Path.Combine(gamePath, "Settings/tuning.dat"), tuning.Bytes);
+                tuning.Save();
                 options.Save();
             }
             else
@@ -76,8 +76,8 @@ namespace TRS2004Edit
                     comboBoxRes.SelectedIndex = i;
             checkBoxFullscreen.Checked = options.Exists("fullscreen");
 
-            numericGround.Value = (decimal)(float)tuning.Read<half>(30)/1000;
-            numericScenery.Value = (decimal)(float)tuning.Read<half>(34)/1000;
+            numericGround.Value = (decimal)tuning.Get("ground");
+            numericScenery.Value = (decimal)tuning.Get("scenery");
 
         }
         void write()
@@ -94,8 +94,8 @@ namespace TRS2004Edit
 
             options.Set("zfar", ((int)Math.Max(drawGround, drawScenery)).ToString());
 
-            tuning.Write<half>(30, (half)drawGround);
-            tuning.Write<half>(34, (half)drawScenery);
+            tuning.Set("ground", drawGround);
+            tuning.Set("scenery", drawScenery);
         }
 
         private void FormSetup_Load(object sender, EventArgs e)
