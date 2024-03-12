@@ -4,70 +4,100 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace TRS2004Edit
+namespace TRS2004Edit;
+
+class OptionsFile : Dictionary<string, string>
 {
-    class OptionsFile
+    string path;
+
+    public OptionsFile(string path)
     {
-        List<string> lines;
-        string path;
-        public OptionsFile(string path)
-        {
-            Load(path);
-        }
+        Load(path);
+    }
 
-        public void Load(string path)
-        {
-            this.path = path;
-            lines = new List<string>(File.ReadAllLines(path));
-        }
+    public void Load(string path)
+    {
+        this.path = path;
 
-        public void Save(string path = null)
-        {
-            if (path == null)
-                path = this.path;
+        var code = File.ReadAllText(path);
+        Parse(code);
+    }
 
-            File.WriteAllLines(path, lines);
-        }
+    public void Save(string path = null)
+    {
+        if (path == null)
+            path = this.path;
 
-        public void Remove(string name)
+        var code = Serialize();
+        File.WriteAllText(path, code);
+    }
+
+    public void Parse(string code)
+    {
+        var lines = code.Split('\n');
+
+        foreach (var line in lines)
         {
-            for (int i = 0; i < lines.Count; i++)
-                if (lines[i].Split('=')[0] == '-' + name)
-                    lines[i] = "";
-        }
-        public void Set(string name, string value)
-        {
-            for (int i = 0; i < lines.Count; i++)
+            var tline = line.Trim();
+            if (tline.Length > 0 && tline[0] == '-')
             {
-                if (lines[i].Split('=')[0] == '-' + name)
+                var split = tline.Split(new[] { '=' }, 2);
+                var key = split[0].Substring(1, split[0].Length - 1);
+                if (split.Length == 2)
                 {
-                    lines[i] = '-' + name;
-                    if (value != null) lines[i] += '=' + value;
-                    return;
+                    this[key] = split[1];
+                }
+                else
+                {
+                    this[key] = null;
                 }
             }
-            var newLine = '-' + name;
-            if (value != null) newLine += '=' + value;
-            lines.Add(newLine);
         }
-        public void Set(string name, bool value)
+    }
+
+    public string Serialize()
+    {
+        var sb = new StringBuilder();
+
+        foreach (var pair in this)
         {
-            if (value) Set(name, null);
-            else Remove(name);
+            if (string.IsNullOrEmpty(pair.Value))
+            {
+                sb.AppendLine($"-{pair.Key}");
+            }
+            else
+            {
+                sb.AppendLine($"-{pair.Key}={pair.Value}");
+            }
         }
-        public string Get(string name)
-        {
-            for (int i = 0; i < lines.Count; i++)
-                if (lines[i].Split('=')[0] == '-' + name)
-                    return lines[i].Split('=')[1];
-            return null;
-        }
-        public bool Exists(string name)
-        {
-            for (int i = 0; i < lines.Count; i++)
-                if (lines[i].Split('=')[0] == '-' + name)
-                    return true;
-            return false;
-        }
+
+        return sb.ToString();
+    }
+
+    public void Set(string name, string value)
+    {
+        this[name] = value;
+    }
+
+    public void Set(string name, bool value)
+    {
+        if (value) Set(name, null);
+        else Remove(name);
+    }
+
+    public string Get(string name)
+    {
+        return this[name];
+    }
+
+    public string Get(string name, string defaultValue)
+    {
+        if (TryGetValue(name, out var value)) return value;
+        else return defaultValue;
+    }
+
+    public bool Exists(string name)
+    {
+        return ContainsKey(name);
     }
 }

@@ -1,144 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86FF1016-897E-42D6-9E60-60EEE9D8656D}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>TRS2004Edit</RootNamespace>
-    <AssemblyName>TRS2004Edit</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>editor.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Settings.cs" />
-    <Compile Include="src\content\ContentManager.cs" />
-    <Compile Include="src\content\FormContent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\content\FormContent.Designer.cs">
-      <DependentUpon>FormContent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\content\Packer.cs" />
-    <Compile Include="src\content\Parser.cs" />
-    <Compile Include="src\content\Token.cs" />
-    <Compile Include="src\content\TrainzObject.cs" />
-    <Compile Include="src\content\TrainzProperty.cs" />
-    <Compile Include="src\FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\settings\BinaryView.cs" />
-    <Compile Include="src\settings\FormSetup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\settings\FormSetup.Designer.cs">
-      <DependentUpon>FormSetup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\control\TrainzButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="src\control\TrainzButton.Designer.cs">
-      <DependentUpon>TrainzButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\settings\half.cs" />
-    <Compile Include="src\settings\OptionsFile.cs" />
-    <Compile Include="src\settings\TuningFile.cs" />
-    <EmbeddedResource Include="src\content\FormContent.resx">
-      <DependentUpon>FormContent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\control\TrainzButton.resx">
-      <DependentUpon>TrainzButton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\settings\FormSetup.resx">
-      <DependentUpon>FormSetup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="bin\Settings\tuning.dat" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\trainzoptions.txt" />
-    <None Include="Resources\readmeback.png" />
-    <None Include="Resources\lampY.png" />
-    <None Include="Resources\editor.ico" />
-    <None Include="Resources\background.png" />
-    <None Include="Resources\lamp.png" />
-    <None Include="Resources\lampG.png" />
-    <None Include="Resources\lampR.png" />
-    <Content Include="editor.ico" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net45</TargetFramework>
+		<!--<Nullable>enable</Nullable>-->
+		<UseWindowsForms>true</UseWindowsForms>
+		<ApplicationIcon>Assets\Icon.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<LangVersion>11</LangVersion>
+		<!--<ImplicitUsings>enable</ImplicitUsings>-->
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="Assets\Icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
 </Project>

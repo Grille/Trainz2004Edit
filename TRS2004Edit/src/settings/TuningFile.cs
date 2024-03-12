@@ -4,48 +4,72 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace TRS2004Edit
+namespace TRS2004Edit;
+
+class TuningFile
 {
-    class TuningFile
+    byte[] data;
+    string path;
+
+    public float Unknown0;
+    public float Unknown1;
+
+    public float Gamma;
+    public float Particles;
+
+    public float GroundTextureGradient;
+    public float GroundDetail;
+
+    public float DrawDistanceGround;
+    public float DrawDistanceScenery;
+
+    public float FogGoodWeather;
+    public float FogBadWeather;
+
+    public float Train;
+    public float Spline;
+
+    public TuningFile(string path)
     {
-        BinaryView view;
-        string path;
-        SortedList<string, float> values;
-        
-        public TuningFile(string path)
-        {
-            values = new SortedList<string, float>();
-            Load(path);
-        }
-        public void Load(string path)
-        {
-            this.path = path;
+        Load(path);
+    }
 
-            view = new BinaryView(File.ReadAllBytes(path));
+    public void Data(bool write)
+    {
+        var view = new BinaryView(data, write);
+        view._(0x00, ref Unknown0);
+        view._(0x04, ref Gamma);
+        view._(0x08, ref Particles);
+        view._(0x0C, ref FogGoodWeather);
+        view._(0x10, ref FogBadWeather);
+        view._(0x14, ref GroundTextureGradient);
+        view._(0x18, ref GroundDetail);
+        view._(0x1c, ref DrawDistanceGround);
+        view._(0x20, ref DrawDistanceScenery);
+        view._(0x24, ref Train);
+        view._(0x28, ref Unknown1);
+        view._(0x2C, ref Spline);
+    }
 
-            values["ground"] = view.Read<half>(30) / 1000;
-            values["scenery"] = view.Read<half>(34) / 1000;
-        }
+    public void Load(string path)
+    {
+        this.path = path;
 
-        public void Save(string path = null)
-        {
-            if (path == null)
-                path = this.path;
+        data = File.ReadAllBytes(path);
 
-            view.Write<half>(30, (half)values["ground"]);
-            view.Write<half>(34, (half)values["scenery"]);
+        if (data.Length != 48)
+            throw new Exception();
 
-            File.WriteAllBytes(path, view.Bytes);
-        }
+        Data(false);
+    }
 
-        public void Set(string key, float value)
-        {
-            values[key] = value;
-        }
+    public void Save(string path = null)
+    {
+        if (path == null)
+            path = this.path;
 
-        public float Get(string key)
-        {
-            return values[key];
-        }
+        Data(true);
+
+        File.WriteAllBytes(path, data);
     }
 }

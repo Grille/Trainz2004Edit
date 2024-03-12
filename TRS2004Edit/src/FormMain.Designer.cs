@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.trainzButton8 = new TRS2004Edit.TrainzButton();
             this.trainzButton7 = new TRS2004Edit.TrainzButton();
             this.trainzButton6 = new TRS2004Edit.TrainzButton();
@@ -164,7 +163,6 @@
             this.Controls.Add(this.trainzButton1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";

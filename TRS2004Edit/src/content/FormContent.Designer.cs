@@ -174,7 +174,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormContent";
             this.Text = "TRS2004 Content Manager";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormContent_FormClosed);
