@@ -8,8 +8,14 @@
 		<ApplicationIcon>Assets\Icon.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<LangVersion>11</LangVersion>
+		<AssemblyName>TRS0406Tuner</AssemblyName>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<!--<ImplicitUsings>enable</ImplicitUsings>-->
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Remove="man.manifest" />
+	</ItemGroup>
 
 	<ItemGroup>
 	  <Content Include="Assets\Icon.ico" />
